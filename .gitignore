@@ -8,4 +8,4 @@ pids
 node_modules/
 .npm
 .eslintcache
-.node_repl_history
+.env
