@@ -14,14 +14,11 @@ class PoloniexService {
 
   async getTicker(pair) {
     const response = await axios.get(`${this.endpoint}/?command=returnTicker`);
-
     const data = response.data[pair];
     const bid = parseFloat(data.highestBid);
     const ask = parseFloat(data.lowestAsk);
 
-    const ticker = new Ticker('poloniex', new Date(), pair, bid, ask);
-
-    return ticker;
+    return new Ticker('poloniex', new Date(), pair, bid, ask);
   }
 }
 
