@@ -1,8 +1,8 @@
 const PoloniexService = require('../services/poloniex');
 
 class InstrumentsRoute {
-  constructor(endpoint) {
-    this.poloniexService = new PoloniexService(endpoint);
+  constructor(endpoints) {
+    this.poloniexService = new PoloniexService(endpoints.poloniex);
   }
 
   get() {

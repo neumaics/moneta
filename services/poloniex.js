@@ -1,22 +1,27 @@
 const axios = require('axios');
+const Ticker = require('../models/ticker');
 
 class PoloniexService {
   constructor(endpoint) {
     this.endpoint = endpoint;
   }
 
-  getSupportedInstruments() {
-    return axios.get(`${this.endpoint}/?command=returnCurrencies`)
-      .then((response) => {
-        return response.data;
-      });
+  async getSupportedInstruments() {
+    const response = await axios.get(`${this.endpoint}/?command=returnCurrencies`);
+
+    return response.data;
   }
 
-  getTicker(pair) {
-    return axios.get(`${this.endpoint}/?command=returnTicker`)
-      .then((response) => {
-        return response.data[pair];
-      });
+  async getTicker(pair) {
+    const response = await axios.get(`${this.endpoint}/?command=returnTicker`);
+
+    const data = response.data[pair];
+    const bid = parseFloat(data.highestBid);
+    const ask = parseFloat(data.lowestAsk);
+
+    const ticker = new Ticker('poloniex', new Date(), pair, bid, ask);
+
+    return ticker;
   }
 }
 
