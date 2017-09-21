@@ -10,3 +10,8 @@ rules:
   semi: [2, "always"]
 parserOptions:
   ecmaVersion: 2017
+  ecmaFeatures:
+    jsx: true
+  sourceType: module
+plugins:
+  - react
