@@ -13,10 +13,14 @@ class BittrexService {
   }
 
   async getTicker(pair) {
-    const response = await axios.get(`${this.endpoint}/public/getticker?market=${this.formatPair(pair)}`);
-    const data = response.data;
-    
-    return new Ticker('bittrex', new Date(), pair, data.result.Bid, data.result.Ask);
+    try {
+      const response = await axios.get(`${this.endpoint}/public/getticker?market=${this.formatPair(pair)}`);
+      const data = response.data;
+
+      return new Ticker('bittrex', new Date(), pair, data.result.Bid, data.result.Ask);
+    } catch (ex) {
+      return { error: 'error calling bittrex' };
+    }
   }
 
   formatPair(pair) {

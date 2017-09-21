@@ -9,3 +9,4 @@ node_modules/
 .npm
 .eslintcache
 .env
+public

@@ -14,15 +14,28 @@ class TickerRoute {
     return (req, res, next) => {
       const pair = req.params.pair;
       const poloniex = this.poloniexService.getTicker(pair);
-      // const bitfinex = this.bitfinexService.getTicker(pair);
+      const bitfinex = this.bitfinexService.getTicker(pair);
       const bittrex = this.bittrexService.getTicker(pair);
 
-      Promise.all([poloniex, bittrex])
-        .then((ticker) => {
-          return res.json(ticker);
+      Promise.all([bitfinex, poloniex, bittrex])
+        .then((tickers) => {
+          return res.json(this.markBest(tickers));
         })
         .catch(next);
     };
+  }
+
+  markBest(tickers) {
+    const min = tickers
+      .filter((ticker) => {
+        return !ticker.hasOwnProperty('error');
+      })
+      .reduce((a, b) => {
+        return a.ask <= b.ask ? a : b;
+      });
+
+    min.best = true;
+    return tickers;
   }
 }
 

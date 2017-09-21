@@ -13,12 +13,16 @@ class PoloniexService {
   }
 
   async getTicker(pair) {
-    const response = await axios.get(`${this.endpoint}/?command=returnTicker`);
-    const data = response.data[pair];
-    const bid = parseFloat(data.highestBid);
-    const ask = parseFloat(data.lowestAsk);
+    try {
+      const response = await axios.get(`${this.endpoint}/?command=returnTicker`);
+      const data = response.data[pair];
+      const bid = parseFloat(data.highestBid);
+      const ask = parseFloat(data.lowestAsk);
 
-    return new Ticker('poloniex', new Date(), pair, bid, ask);
+      return new Ticker('poloniex', new Date(), pair, bid, ask);
+    } catch (ex) {
+      return { error: 'error calling poloniex' };
+    }
   }
 }
 
