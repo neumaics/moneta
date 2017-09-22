@@ -1,4 +1,4 @@
-const Promise = require("bluebird");
+const Promise = require('bluebird');
 const PoloniexService = require('../services/poloniex');
 const BitfinexService = require('../services/bitfinex');
 const BittrexService = require('../services/bittrex');
