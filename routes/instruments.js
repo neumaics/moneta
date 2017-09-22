@@ -5,7 +5,7 @@ class InstrumentsRoute {
     this.poloniexService = new PoloniexService(endpoints.poloniex);
   }
 
-  get() {
+  instruments() {
     return (req, res, next) => {
       this.poloniexService
         .getSupportedInstruments()

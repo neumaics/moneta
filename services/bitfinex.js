@@ -19,7 +19,7 @@ class BitfinexService {
       const bid = parseFloat(data.bid);
       const ask = parseFloat(data.ask);
 
-      return new Ticker('bitfinex', data.timestamp, pair, bid, ask);
+      return new Ticker('bitfinex', new Date, pair, bid, ask);
     } catch (ex) {
       return { error: 'error calling bitfinex' };
     }

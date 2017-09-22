@@ -2,3 +2,9 @@ version: '3'
 services:
   web:
     build: .
+    depends_on:
+      - mongo
+    ports:
+     - "3000:3000"
+  mongo:
+    image: mongo
