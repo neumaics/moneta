@@ -11,6 +11,12 @@ class TickerService {
     this.bittrexService = new BittrexService(endpoints.bittrex);
   }
 
+  /**
+   * Query the exchanges for their current trading rates.
+   *
+   * @param pair string the pair to query
+   * @return Promise
+   */
   forPair(pair) {
     const poloniex = this.poloniexService.getTicker(pair);
     const bitfinex = this.bitfinexService.getTicker(pair);

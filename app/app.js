@@ -1,8 +1,13 @@
-import React from 'react';
+/* eslint-env browser */
+import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
 import CurrencyPair from './components/currency-pair';
 
 ReactDOM.render(
-  <CurrencyPair pair="BTC_ETH" />,
+  <div>
+    <CurrencyPair key="eth" pair="BTC_ETH" />
+    <CurrencyPair key="ltc" pair="BTC_LTC" />
+    <CurrencyPair key="dash" pair="BTC_DASH" />
+  </div>,
   document.getElementById('app')
 );
