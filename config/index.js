@@ -8,5 +8,8 @@ module.exports = {
     poloniex: process.env.POLONIEX,
     bitfinex: process.env.BITFINEX,
     bittrex: process.env.BITTREX
+  },
+  mongo: {
+    host: process.env.MONGO_HOST
   }
 };
