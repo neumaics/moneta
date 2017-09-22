@@ -9,6 +9,13 @@ const Ticker = mongoose.model('Ticker', {
   ask: Number
 });
 
+/**
+ * At a regular interval, poll the exchanges for ticker data
+ *
+ * @param endpoints Object endpoints for exchanges
+ * @param dataconfig Object database configuration information
+ * @param interval Number the time in milliseconds between polling the exchanges
+ */
 class HistoryService {
 
   constructor(endpoints, dataconfig, interval) {

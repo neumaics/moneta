@@ -13,7 +13,6 @@ class HistoryRoute {
       this.history.queryInterval(pair, from, to, (err, docs) => {
         if (err) return next(err);
 
-        console.log(`got ${docs.length} records back`);
         res.json(docs);
       });
     };
