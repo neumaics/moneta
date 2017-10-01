@@ -1,4 +1,4 @@
-FROM node:8.5.0-slim
+FROM node:slim
 
 WORKDIR /app/moneta
 
@@ -9,6 +9,6 @@ RUN npm install
 COPY . .
 COPY .env.example ./.env
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD npm run-script serve
