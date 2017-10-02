@@ -1,7 +1,7 @@
 const HistoryService = require('../services/history');
 
 class HistoryRoute {
-  constructor(endpoints, dataconfig, interval = 10000) {
+  constructor(endpoints, dataconfig, interval = 300000) {
     this.history = new HistoryService(endpoints, dataconfig, interval);
     this.history.start();
   }
