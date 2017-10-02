@@ -13,7 +13,21 @@ class HistoryRoute {
       this.history.queryInterval(pair, from, to, (err, docs) => {
         if (err) return next(err);
 
-        res.json(docs);
+        const history = docs.map((doc) => {
+          return {
+            exchanges: doc.exchanges.map((exchange) => {
+              return {
+                name: exchange.name,
+                bid: exchange.bid,
+                ask: exchange.ask
+              };
+            }),
+            timestamp: doc.timestamp,
+            pair: doc.pair,
+          };
+        });
+
+        res.json(history);
       });
     };
   }

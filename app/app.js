@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import CurrencyPair from './components/currency-pair';
 
 ReactDOM.render(
-  <div>
+  <div style={{display: 'flex', flexWrap: 'wrap'}}>
     <CurrencyPair key="eth" pair="BTC_ETH" />
     <CurrencyPair key="ltc" pair="BTC_LTC" />
     <CurrencyPair key="dash" pair="BTC_DASH" />
