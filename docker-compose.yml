@@ -2,9 +2,10 @@ version: '3'
 services:
   web:
     build: .
+    image: neumaics/moneta
     depends_on:
       - mongo
-    ports:
-     - "3000:3000"
+    network_mode: bridge
   mongo:
     image: mongo
+    network_mode: bridge

@@ -1,7 +1,6 @@
 const nock = require('nock');
 const PoloniexService = require('../../services/poloniex');
 
-
 describe('Poloniex service', () => {
   const endpoint = 'https://dummypoloniex.com';
   const poloniexService = new PoloniexService(endpoint);

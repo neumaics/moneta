@@ -6,7 +6,7 @@ const clean = require('gulp-clean');
 
 gulp.task('default', ['serve']);
 
-gulp.task('serve', () => {
+gulp.task('serve', ['scripts'], () => {
   const stream = nodemon({
     script: 'server.js',
     ext: 'html js',

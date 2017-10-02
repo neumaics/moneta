@@ -2,11 +2,9 @@ const TickerService = require('./ticker');
 const mongoose = require('mongoose');
 
 const Ticker = mongoose.model('Ticker', {
-  exchange: String,
+  exchanges: [{ name: String, bid: Number, ask: Number }],
   timestamp: Date,
-  pair: String,
-  bid: Number,
-  ask: Number
+  pair: String
 });
 
 /**
@@ -30,7 +28,8 @@ class HistoryService {
    * Start the historical data system.
    */
   start() {
-    this.active = setInterval(() => this.queryServices('BTC_ETH'), this.interval);
+    // TODO: use more accurate timing.
+    this.active = setInterval(() => this.queryServices(['BTC_ETH', 'BTC_LTC', 'BTC_DASH']), this.interval);
   }
 
   /**
@@ -46,16 +45,32 @@ class HistoryService {
   /**
    * Query the exchanges for the ticker data for a particular currency pair.
    *
-   * @param pair string - the currency pair to the query the exchanges' ticker service.
+   * @param pair string[] - the currency pairs to the query the exchanges' ticker service.
    */
-  queryServices(pair) {
-    this.tickerService.forPair(pair)
-      .then((tickers) => {
-        return Ticker.insertMany(tickers);
-      })
-      .catch((error) => {
-        console.error(`error querying ticker for ${pair}: ${error}`);
-      });
+  queryServices(pairs) {
+    pairs.forEach((pair) => {
+      this.tickerService.forPair(pair)
+        .then((tickers) => {
+          const datapoint = {
+            timestamp: new Date(),
+            pair: pair,
+            exchanges: tickers
+              .filter((ticker) => !ticker.hasOwnProperty('error'))
+              .map((ticker) => {
+                return {
+                  name: ticker.exchange,
+                  bid: ticker.bid,
+                  ask: ticker.ask
+                };
+              })
+          };
+
+          return new Ticker(datapoint).save();
+        })
+        .catch((error) => {
+          console.error(`error querying ticker for ${pair}: ${error}`);
+        });
+    });
   }
 
   /**
